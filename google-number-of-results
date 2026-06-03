@@ -2,30 +2,57 @@
 // @name         Google: Number of Results
 // @namespace    https://google.com/
 // @version      2025-08-06
-// @description  Always show number of Google results
+// @description  Always show number of Google results (and hide AI mode)
 // @author       Maximilian Schön
 // @match        https://www.google.com/search*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=google.com
 // @grant        none
 // ==/UserScript==
 
-(function() {
-    'use strict';
-
-    // Your code here...
-
-    setTimeout(main, 100);
+(function () {
+    'use strict'; // Your code here...
+    setTimeout(main, 1000);
 
     function main() {
-        const resultStats = document.querySelector("#result-stats");
+        hideAiMode();
+        showResultStats();
+    }
 
-        if (!resultStats) {
+    function hideAiMode() {
+        let element = document.querySelector("#cnt > div:nth-of-type(3)"); // menu bar
+
+        if (!element) {
+            console.error("Tampermonkey: Menu bar not found");
             return;
         }
 
-        const parent = document.querySelector("#cnt > div:nth-of-type(3) > div > div:nth-of-type(1) > div > div");
+        while (true) {
+            element = element.querySelector("div:nth-of-type(1)");
+
+            if (element.textContent === "KI‑Modus") {
+                element.style.display = "none";
+                break;
+            }
+
+            if (!element) {
+                console.error("Tampermonkey: AI Mode element not found");
+                return;
+            }
+        }
+    }
+
+    function showResultStats() {
+        const resultStats = document.querySelector("#result-stats");
+
+        if (!resultStats) {
+            console.error("Tampermonkey: Result stats not found");
+            return;
+        }
+
+        const parent = document.querySelector("#cnt > div:nth-of-type(3) > div > div:nth-of-type(1) > div > div > div > div > div");
 
         if (!parent) {
+            console.error("Tampermonkey: Parent not found");
             return;
         }
 
@@ -34,6 +61,5 @@
         div.style.display = "flex";
         div.style.alignItems = "center";
         parent.appendChild(div);
-
     }
 })();
