@@ -1,0 +1,39 @@
+// ==UserScript==
+// @name         Google: Number of Results
+// @namespace    https://google.com/
+// @version      2025-08-06
+// @description  Always show number of Google results
+// @author       Maximilian Schön
+// @match        https://www.google.com/search*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=google.com
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Your code here...
+
+    setTimeout(main, 100);
+
+    function main() {
+        const resultStats = document.querySelector("#result-stats");
+
+        if (!resultStats) {
+            return;
+        }
+
+        const parent = document.querySelector("#cnt > div:nth-of-type(3) > div > div:nth-of-type(1) > div > div");
+
+        if (!parent) {
+            return;
+        }
+
+        const div = document.createElement("div");
+        div.innerHTML = resultStats.textContent.replace("Ungefähr ", "").replace(/Ergebnisse.*/, "<br>Ergebnisse");
+        div.style.display = "flex";
+        div.style.alignItems = "center";
+        parent.appendChild(div);
+
+    }
+})();
