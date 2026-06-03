@@ -1,0 +1,30 @@
+// ==UserScript==
+// @name         Google: Precipitation values
+// @namespace    https://google.com/
+// @version      2026-06-03
+// @description  Show all precipitation values
+// @author       Maximilian Schön
+// @match        https://www.google.com/search*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=google.com
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Your code here...
+
+    setTimeout(main, 1000);
+
+    function main() {
+        const dataPoints = document.querySelectorAll(".wob_hw > div:first-child");
+
+        for (const point of dataPoints) {
+            const ariaLabel = point.getAttribute("aria-label");
+
+            if (ariaLabel) {
+                point.textContent = ariaLabel.match(/^.*?%/)[0];
+            }
+        }
+    }
+})();
