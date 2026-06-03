@@ -1,0 +1,24 @@
+// ==UserScript==
+// @name         Grüne Wolke: Esc to Close
+// @namespace    http://tampermonkey.net/
+// @version      2026-03-31
+// @description  Typing Esc closes the current view (e.g. PDF reader)
+// @author       You
+// @match        https://wolke.netzbegruenung.de/apps/*
+// @icon         https://wolke.netzbegruenung.de/apps/theming/favicon/files?v=0a5e81e5
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Your code here...
+
+    console.debug("Tampermonkey: Grüne Wolke – Esc to Close");
+
+    window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            window.top.document.querySelector(".header-close")?.click();
+        }
+    });
+})();
