@@ -1,0 +1,27 @@
+// ==UserScript==
+// @name         5etools: Hide Images
+// @namespace    http://tampermonkey.net/
+// @version      2025-11-03
+// @description  Hide all images from 5etools (SFW)
+// @author       Maximilian Schön
+// @match        https://2014.5e.tools/*
+// @match        https://5e.tools/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=5e.tools
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Your code here...
+
+    console.debug("Tampermonkey: Remove 5etools images");
+
+    setInterval(() => {
+        const imgs = document.querySelectorAll("img");
+
+        for (const img of imgs) {
+            img.style.visibility = "hidden";
+        }
+    }, 1000);
+})();
